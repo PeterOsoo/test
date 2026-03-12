@@ -1,73 +1,99 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-[#030303]">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>ONDIEGI ENT | Automation Architects</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;800&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONDIEGI ENTERPRISES | Systems & Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=Outfit:wght@100;400;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="antialiased overflow-x-hidden text-white">
+<body class="loading">
 
-    <div id="cursor" class="hidden md:block"></div>
+    <div class="noise"></div>
 
-    <nav class="fixed top-0 w-full z-[100] mix-blend-difference p-8 flex justify-between items-center">
-        <div class="text-2xl font-black tracking-tighter uppercase">Ondiegi<span class="text-blue-600">.</span></div>
-        <div class="flex gap-12 font-mono text-[10px] tracking-[0.3em] uppercase">
-            <a href="#work" class="nav-link">Work</a>
-            <a href="#services" class="nav-link">Systems</a>
-            <a href="#contact" class="nav-link">Inquiry</a>
+    <div id="cursor"></div>
+    <div id="cursor-border"></div>
+
+    <nav class="main-nav">
+        <a href="#" class="nav-logo">ONDIEGI<span>ENT</span></a>
+        <div class="nav-links">
+            <a href="#systems" class="mag-link">Systems</a>
+            <a href="#logic" class="mag-link">Logic</a>
+            <a href="#inquiry" class="mag-link">Inquiry</a>
+            <a href="tel:+254701868583" class="nav-cta">Call Now</a>
         </div>
+        <div class="menu-trigger"><span></span><span></span></div>
     </nav>
 
-    <main id="main-container">
-        <section class="h-screen flex flex-col justify-center px-10 relative overflow-hidden">
-            <div class="massive-text-container">
-                <h1 class="massive-title" id="title-1">QUERY</h1>
-                <h1 class="massive-title outline-text" id="title-2">BEFORE</h1>
-                <h1 class="massive-title" id="title-3">CODE.</h1>
+    <section class="hero-stage">
+        <div class="hero-bg-text">ONDIEGI</div>
+        
+        <div class="hero-container">
+            <div class="hero-tag-wrap">
+                <span class="pulse-dot"></span>
+                <span class="hero-tag">Active in Nairobi & 47 Counties</span>
             </div>
-            <div class="absolute bottom-20 right-10 max-w-sm text-right">
-                <p class="text-slate-500 font-mono text-xs uppercase leading-loose">
-                    Automations. Web Design. Tech Support. <br>
-                    Enterprise Integration for the 1%.
-                </p>
-            </div>
-        </section>
 
-        <section class="horizontal-wrapper">
-            <div class="horizontal-content" id="horizontal-scroll">
-                <div class="h-panel glass">
-                    <span class="num">01</span>
-                    <h2>Discovery Audit</h2>
-                </div>
-                <div class="h-panel glass">
-                    <span class="num">02</span>
-                    <h2>Logic Mapping</h2>
-                </div>
-                <div class="h-panel glass">
-                    <span class="num">03</span>
-                    <h2>Execution</h2>
-                </div>
-            </div>
-        </section>
+            <h1 class="massive-reveal">
+                <span class="line">SYSTEMS</span>
+                <span class="line stroke">WITHOUT</span>
+                <span class="line">FRICTION<span class="dot">.</span></span>
+            </h1>
 
-        <section id="services" class="min-h-screen py-40 px-10">
-            <div class="bento-grid">
-                <div class="bento-item col-span-2 row-span-2 bg-blue-600 p-12">
-                    <h3 class="text-5xl font-black">Full-Stack <br>Automation</h3>
-                </div>
-                <div class="bento-item glass p-8"><h3>Web Systems</h3></div>
-                <div class="bento-item glass p-8"><h3>Integration</h3></div>
-                <div class="bento-item col-span-2 glass p-8"><h3>24/7 Enterprise Support</h3></div>
-            </div>
-        </section>
-    </main>
+            <p class="hero-subtext">
+                <strong>Automation Architects</strong> for the modern enterprise. 
+                We don't just build websites; we engineer autonomous workflows that breathe.
+            </p>
 
-    <a href="https://wa.me/254701868583" target="_blank" class="wa-bridge">
-        <div class="wa-status"><span class="pulse"></span> Online</div>
-        <div class="wa-text">Initiate Query</div>
+            <div class="hero-actions">
+                <a href="#inquiry" class="btn-primary">Initiate Project &nbsp; →</a>
+                <a href="#systems" class="btn-outline">The Ecosystem</a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="mouse"><span></span></div>
+            <p>Scroll to Explore</p>
+        </div>
+    </section>
+
+    <section class="bento-section" id="systems">
+        <div class="section-label">01 // Services</div>
+        <h2 class="section-title">Core <span class="stroke">Capabilities</span></h2>
+
+        <div class="bento-grid">
+            <div class="bento-card main reveal-up">
+                <div class="card-num">01</div>
+                <h3>Full-Stack <br>Automation</h3>
+                <p>Python-driven backends that handle the heavy lifting while you sleep.</p>
+                <div class="card-arrow">↗</div>
+            </div>
+            
+            <div class="bento-card dark reveal-up">
+                <div class="card-num">02</div>
+                <h3>Web Systems</h3>
+                <p>High-fidelity, reactive interfaces for Nairobi's top tech firms.</p>
+            </div>
+
+            <div class="bento-card accent reveal-up">
+                <div class="card-num">03</div>
+                <h3>24/7 Intel</h3>
+                <p>Real-time system monitoring and enterprise support.</p>
+            </div>
+
+            <div class="bento-card wide reveal-up">
+                <div class="card-num">04</div>
+                <h3>API Integration</h3>
+                <p>Connecting your legacy hardware to the modern cloud seamlessly.</p>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/254701868583" class="wa-floating">
+        <div class="wa-inner">
+            <span class="wa-status"></span>
+            <span class="wa-text">WhatsApp: 0701868583</span>
+        </div>
     </a>
 
     <script src="script.js"></script>
