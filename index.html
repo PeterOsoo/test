@@ -1,86 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="bg-[#030303]">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ondiegi Enterprises | Systems Architect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>ONDIEGI ENT | Automation Architects</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@100;400;900&display=swap" rel="stylesheet">
-    <style>
-        :root { --accent: #3b82f6; --accent-glow: rgba(59, 130, 246, 0.5); }
-        body { font-family: 'Outfit', sans-serif; background: #020617; }
-        .font-mono { font-family: 'Space Grotesk', monospace; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .bento-card { transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
-        .mesh-gradient { background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0, transparent 50%), radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0, transparent 50%); }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;800&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="text-slate-300 antialiased overflow-x-hidden mesh-gradient">
+<body class="antialiased overflow-x-hidden text-white">
 
-    <canvas id="bg-canvas" class="fixed inset-0 -z-10"></canvas>
+    <div id="cursor" class="hidden md:block"></div>
 
-    <button id="menu-toggle" class="fixed top-6 right-6 z-[100] md:hidden glass p-3 rounded-2xl">
-        <div class="w-6 h-0.5 bg-white mb-1.5 transition-all"></div>
-        <div class="w-6 h-0.5 bg-white transition-all"></div>
-    </button>
-
-    <nav id="navbar" class="fixed top-0 w-full z-50 px-6 py-8 transition-all duration-700">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-blue-600 rounded-xl rotate-12 flex items-center justify-center font-black text-white shadow-2xl shadow-blue-500/50">O</div>
-                <span class="text-xl font-black tracking-tighter text-white uppercase">Ondiegi <span class="font-extralight opacity-50 underline decoration-blue-500">Ent.</span></span>
-            </div>
-            <div class="hidden md:flex glass px-8 py-3 rounded-full gap-8 text-xs font-bold uppercase tracking-[0.2em]">
-                <a href="#services" class="hover:text-blue-400 transition-all">Systems</a>
-                <a href="#workflow" class="hover:text-blue-400 transition-all">Workflow</a>
-                <a href="#contact" class="hover:text-blue-400 transition-all">Inquiry</a>
-            </div>
+    <nav class="fixed top-0 w-full z-[100] mix-blend-difference p-8 flex justify-between items-center">
+        <div class="text-2xl font-black tracking-tighter uppercase">Ondiegi<span class="text-blue-600">.</span></div>
+        <div class="flex gap-12 font-mono text-[10px] tracking-[0.3em] uppercase">
+            <a href="#work" class="nav-link">Work</a>
+            <a href="#services" class="nav-link">Systems</a>
+            <a href="#contact" class="nav-link">Inquiry</a>
         </div>
     </nav>
 
-    <main class="relative pt-32 md:pt-48 px-6">
-        <section class="max-w-7xl mx-auto mb-32">
-            <div class="grid lg:grid-cols-12 gap-12 items-end">
-                <div class="lg:col-span-8">
-                    <h2 class="font-mono text-blue-500 text-sm mb-6 tracking-[0.5em] uppercase opacity-0 translate-y-10" id="hero-sub">Architecture & Integration</h2>
-                    <h1 class="text-6xl md:text-[10rem] font-black text-white leading-[0.85] tracking-tighter mb-12 opacity-0 translate-y-10" id="hero-main">
-                        WE CODE <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500">FUTURE</span> PROOF.
-                    </h1>
+    <main id="main-container">
+        <section class="h-screen flex flex-col justify-center px-10 relative overflow-hidden">
+            <div class="massive-text-container">
+                <h1 class="massive-title" id="title-1">QUERY</h1>
+                <h1 class="massive-title outline-text" id="title-2">BEFORE</h1>
+                <h1 class="massive-title" id="title-3">CODE.</h1>
+            </div>
+            <div class="absolute bottom-20 right-10 max-w-sm text-right">
+                <p class="text-slate-500 font-mono text-xs uppercase leading-loose">
+                    Automations. Web Design. Tech Support. <br>
+                    Enterprise Integration for the 1%.
+                </p>
+            </div>
+        </section>
+
+        <section class="horizontal-wrapper">
+            <div class="horizontal-content" id="horizontal-scroll">
+                <div class="h-panel glass">
+                    <span class="num">01</span>
+                    <h2>Discovery Audit</h2>
                 </div>
-                <div class="lg:col-span-4 pb-4">
-                    <p class="text-lg text-slate-400 leading-relaxed mb-8 border-l-2 border-blue-500 pl-6">
-                        Ondiegi Enterprises specializes in high-velocity automation and enterprise-grade tech support. We don't just solve problems; we prevent them through rigorous query-based architecture.
-                    </p>
-                    <div class="flex gap-4">
-                        <div class="h-12 w-12 rounded-full border border-white/10 flex items-center justify-center animate-bounce">↓</div>
-                        <span class="font-mono text-[10px] uppercase pt-4 tracking-widest text-slate-500">Scroll to explore</span>
-                    </div>
+                <div class="h-panel glass">
+                    <span class="num">02</span>
+                    <h2>Logic Mapping</h2>
+                </div>
+                <div class="h-panel glass">
+                    <span class="num">03</span>
+                    <h2>Execution</h2>
                 </div>
             </div>
         </section>
 
-        <section id="services" class="max-w-7xl mx-auto mb-32">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="bento-container">
+        <section id="services" class="min-h-screen py-40 px-10">
+            <div class="bento-grid">
+                <div class="bento-item col-span-2 row-span-2 bg-blue-600 p-12">
+                    <h3 class="text-5xl font-black">Full-Stack <br>Automation</h3>
                 </div>
-        </section>
-
-        <section class="max-w-7xl mx-auto glass rounded-[3rem] p-12 mb-32 relative overflow-hidden">
-            <div class="relative z-10 grid md:grid-cols-2 gap-12">
-                <div>
-                    <h3 class="text-4xl font-black text-white mb-6 uppercase">The Query Protocol</h3>
-                    <p class="text-slate-400 mb-8 font-mono italic">"We ask 50 questions before we write 1 line of code."</p>
-                    <ul class="space-y-4 text-sm uppercase tracking-widest font-bold">
-                        <li class="flex items-center gap-4 text-blue-400"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> 01. Discovery Audit</li>
-                        <li class="flex items-center gap-4"><span class="w-2 h-2 bg-slate-700 rounded-full"></span> 02. Integration Mapping</li>
-                        <li class="flex items-center gap-4"><span class="w-2 h-2 bg-slate-700 rounded-full"></span> 03. Automation Stress Test</li>
-                    </ul>
-                </div>
-                <div class="bg-black/40 rounded-3xl p-8 border border-white/5">
-                    <div id="terminal-text" class="font-mono text-xs text-blue-300"></div>
-                </div>
+                <div class="bento-item glass p-8"><h3>Web Systems</h3></div>
+                <div class="bento-item glass p-8"><h3>Integration</h3></div>
+                <div class="bento-item col-span-2 glass p-8"><h3>24/7 Enterprise Support</h3></div>
             </div>
         </section>
     </main>
+
+    <a href="https://wa.me/254701868583" target="_blank" class="wa-bridge">
+        <div class="wa-status"><span class="pulse"></span> Online</div>
+        <div class="wa-text">Initiate Query</div>
+    </a>
 
     <script src="script.js"></script>
 </body>

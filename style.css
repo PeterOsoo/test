@@ -1,144 +1,98 @@
-/* 1. CORE ARCHITECTURE */
 :root {
-    --bg-dark: #020617;
-    --accent: #3b82f6;
-    --accent-secondary: #a855f7;
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --text-main: #f8fafc;
-    --text-dim: #94a3b8;
+    --blue: #2563eb;
+    --dark: #030303;
 }
 
-* {
+body::-webkit-scrollbar { display: none; }
+
+/* Massive Typography */
+.massive-title {
+    font-size: clamp(5rem, 15vw, 20rem);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.05em;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    cursor: none; /* We'll use a custom cursor logic later if needed */
 }
 
-html {
-    scroll-behavior: smooth;
-    background: var(--bg-dark);
+.outline-text {
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255,255,255,0.2);
 }
 
-body {
-    font-family: 'Outfit', sans-serif;
-    color: var(--text-main);
-    line-height: 1.6;
-}
-
-/* 2. GLASSMORPHISM ENGINE */
-.glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-}
-
-/* 3. BENTO GRID LOGIC */
-.bento-card {
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+/* Horizontal Scroll Setup */
+.horizontal-wrapper {
+    height: 300vh; /* Controlled by JS */
     position: relative;
-    overflow: hidden;
 }
 
-.bento-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: var(--accent);
-    background: rgba(59, 130, 246, 0.05);
+.horizontal-content {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    width: 300vw;
+    align-items: center;
+    padding: 0 10vw;
+    gap: 10vw;
 }
 
-.bento-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.1), transparent 40%);
-    opacity: 0;
-    transition: opacity 0.5s;
-    pointer-events: none;
+.h-panel {
+    width: 80vw;
+    height: 60vh;
+    flex-shrink: 0;
+    border-radius: 40px;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.bento-card:hover::after {
-    opacity: 1;
+.h-panel h2 { font-size: 5rem; font-weight: 800; tracking: -2px; }
+.num { font-family: 'JetBrains Mono'; color: var(--blue); }
+
+/* Bento Grid */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 300px);
+    gap: 20px;
 }
 
-/* 4. TYPOGRAPHY & GRADIENTS */
-h1, h2, h3 {
-    letter-spacing: -0.04em;
+.bento-item { border-radius: 32px; transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
+.bento-item:hover { transform: scale(0.98); }
+
+.glass {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
 }
 
-.font-mono {
-    font-family: 'Space Grotesk', monospace;
-    letter-spacing: 0.1em;
-}
-
-.text-gradient {
-    background: linear-gradient(135deg, #60a5fa 0%, #a855f7 50%, #ec4899 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 200% 200%;
-    animation: gradient-flow 8s ease infinite;
-}
-
-@keyframes gradient-flow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* 5. MOBILE RESPONSIVENESS & NAV */
-#navbar.glass {
-    max-width: 90%;
-    margin: 1rem auto;
+/* WhatsApp Floating UI */
+.wa-bridge {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background: white;
+    color: black;
+    padding: 20px 40px;
     border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    z-index: 1000;
+    font-weight: 800;
+    transition: 0.5s;
 }
 
-@media (max-width: 768px) {
-    #hero-main {
-        font-size: 4.5rem !important;
-        line-height: 0.95;
-    }
-    
-    .bento-card {
-        grid-column: span 1 !important;
-        grid-row: span 1 !important;
-    }
-}
+.wa-bridge:hover { transform: scale(1.1) rotate(-2deg); background: var(--blue); color: white; }
 
-/* 6. SYSTEM HEALTH PULSE */
-.health-pulse {
+.pulse {
+    display: inline-block;
     width: 8px;
     height: 8px;
     background: #22c55e;
     border-radius: 50%;
-    position: relative;
-}
-
-.health-pulse::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    border: 2px solid #22c55e;
-    animation: pulse 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(0.5); opacity: 1; }
-    100% { transform: scale(2.5); opacity: 0; }
-}
-
-/* 7. REVEAL ANIMATIONS */
-.opacity-0 {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.translate-y-20 {
-    transform: translateY(60px);
-}
-
-.transition-all {
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 0 10px #22c55e;
 }
