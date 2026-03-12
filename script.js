@@ -1,198 +1,180 @@
-/**
- * ONDIEGI ENTERPRISES - Core Site Engine
- * Features: Particle Physics, Custom Estimator, Scroll Observers,
- * Dynamic Service Injections, and Hardware-accelerated UI.
+/** * ONDIEGI ENTERPRISES - CORE SYSTEM v2.0
+ * HIGH-END ENTERPRISE ARCHITECTURE 
  */
 
-const OndiegiEngine = (() => {
-    // 1. STATE MANAGEMENT
-    const state = {
-        isNavActive: false,
-        particles: [],
+const OndiegiApp = (() => {
+    // 1. SYSTEM CONFIGURATION
+    const config = {
+        themeColor: '#3b82f6',
         services: [
-            { id: 'auto', title: 'Automations', icon: 'zap', desc: 'Eliminate manual work with custom Python/GAS bots.', cost: 1500 },
-            { id: 'web', title: 'Web Design', icon: 'layout', desc: 'High-performance, responsive corporate ecosystems.', cost: 2500 },
-            { id: 'tech', title: 'Tech Support', icon: 'headphones', desc: 'Tier 2/3 remote infrastructure and network maintenance.', cost: 1200 },
-            { id: 'int', title: 'Integration', icon: 'share-2', desc: 'Syncing ERP, CRM, and APIs seamlessly.', cost: 3000 }
+            { id: '01', title: 'Workflows', category: 'Automation', size: 'md:col-span-2 md:row-span-2', icon: '⚡', desc: 'Custom Python & Node.js bots that handle Ksh 10M+ daily transactions.' },
+            { id: '02', title: 'UI/UX', category: 'Design', size: 'md:col-span-2', icon: '🎨', desc: 'High-conversion, glassmorphic interfaces for fintech & logistics.' },
+            { id: '03', title: 'Support', category: 'Infrastructure', size: 'md:col-span-1', icon: '🛡️', desc: '24/7 Tier 3 technical lifelines for distributed teams.' },
+            { id: '04', title: 'API Sync', category: 'Integration', size: 'md:col-span-1', icon: '🔗', desc: 'Seamless ERP-to-Cloud handshakes.' }
         ],
-        projectScale: 40,
-        selectedServiceCost: 1500
+        terminalMessages: [
+            "> Initializing Discovery Audit...",
+            "> Mapping legacy system architecture...",
+            "> Identifying automation bottlenecks...",
+            "> Protocol: Query-First coding initiated.",
+            "> Analyzing data flow scalability...",
+            "> ONDIEGI SYSTEM ONLINE: Waiting for inquiry."
+        ]
     };
 
-    // 2. PARTICLE SYSTEM CONFIG
-    const canvas = document.getElementById('particleCanvas');
+    // 2. CANVAS AMBIENT ENGINE
+    const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
-    let width, height;
+    let blobs = [];
 
-    class Particle {
+    class AmbientBlob {
         constructor() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.5;
-            this.vy = (Math.random() - 0.5) * 0.5;
-            this.radius = Math.random() * 1.5;
+            this.x = Math.random() * window.innerWidth;
+            this.y = Math.random() * window.innerHeight;
+            this.size = Math.random() * 400 + 200;
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = (Math.random() - 0.5) * 0.3;
+            this.color = Math.random() > 0.5 ? 'rgba(59, 130, 246, 0.03)' : 'rgba(168, 85, 247, 0.03)';
         }
-
         update() {
-            this.x += this.vx;
-            this.y += this.vy;
-            if (this.x < 0 || this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < -200 || this.x > window.innerWidth + 200) this.vx *= -1;
+            if (this.y < -200 || this.y > window.innerHeight + 200) this.vy *= -1;
         }
-
         draw() {
+            const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+            grad.addColorStop(0, this.color);
+            grad.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad;
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(59, 130, 246, 0.5)';
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
         }
     }
 
-    const initParticles = () => {
+    const initCanvas = () => {
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
         resize();
-        state.particles = Array.from({ length: 120 }, () => new Particle());
+        window.addEventListener('resize', resize);
+        blobs = Array.from({ length: 8 }, () => new AmbientBlob());
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            blobs.forEach(b => { b.update(); b.draw(); });
+            requestAnimationFrame(animate);
+        };
         animate();
     };
 
-    const resize = () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    };
-
-    const animate = () => {
-        ctx.clearRect(0, 0, width, height);
-        state.particles.forEach(p => {
-            p.update();
-            p.draw();
-            // Connect particles
-            state.particles.forEach(p2 => {
-                const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-                if (dist < 100) {
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.strokeStyle = `rgba(59, 130, 246, ${1 - dist / 100})`;
-                    ctx.lineWidth = 0.2;
-                    ctx.stroke();
-                }
-            });
-        });
-        requestAnimationFrame(animate);
-    };
-
-    // 3. UI GENERATORS
-    const renderServices = () => {
-        const grid = document.getElementById('servicesGrid');
-        grid.innerHTML = state.services.map(s => `
-            <div class="group p-8 bg-slate-900/50 border border-white/5 rounded-[2rem] hover:bg-blue-600 transition-all duration-500 cursor-pointer overflow-hidden relative">
-                <div class="absolute -right-4 -bottom-4 text-white/5 transform group-hover:scale-150 transition-transform duration-700">
-                    <svg width="100" height="100" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    // 3. DYNAMIC BENTO GRID RENDERER
+    const renderBento = () => {
+        const container = document.getElementById('bento-container');
+        container.innerHTML = config.services.map((s, i) => `
+            <div class="bento-card glass p-8 rounded-[2.5rem] ${s.size} group hover:border-blue-500/50 relative overflow-hidden flex flex-col justify-between opacity-0 translate-y-20" data-delay="${i * 100}">
+                <div class="absolute -right-10 -top-10 text-9xl opacity-[0.03] group-hover:opacity-[0.08] transition-all duration-1000 rotate-12 group-hover:rotate-0">
+                    ${s.icon}
                 </div>
-                <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-white/20 transition-colors">
-                    <div class="text-blue-400 group-hover:text-white transition-colors uppercase font-black text-[10px]">${s.id}</div>
+                <div class="relative z-10">
+                    <span class="font-mono text-[10px] text-blue-500 tracking-[0.4em] uppercase mb-2 block">${s.category}</span>
+                    <h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-4">${s.title}</h3>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-4">${s.title}</h3>
-                <p class="text-sm text-slate-400 group-hover:text-blue-100 transition-colors leading-relaxed">
+                <p class="relative z-10 text-slate-500 group-hover:text-slate-300 transition-colors text-sm leading-relaxed max-w-[250px]">
                     ${s.desc}
                 </p>
+                <div class="mt-8 flex justify-between items-center relative z-10">
+                    <div class="text-xs font-mono text-blue-400">#${s.id}</div>
+                    <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">→</div>
+                </div>
             </div>
         `).join('');
     };
 
-    const renderCodeHero = () => {
-        const lines = [
-            "Initializing Ondiegi_Core...",
-            "Checking Automation Protocols",
-            "API Handshake: SUCCESS",
-            "Deploying Integration Microservices",
-            "System Optimization Active"
-        ];
-        const container = document.getElementById('codeLines');
-        lines.forEach((line, i) => {
-            const el = document.createElement('div');
-            el.className = "flex gap-4 font-mono text-xs opacity-0 transform translate-x-4 transition-all duration-1000";
-            el.innerHTML = `<span class="text-blue-500">${i + 1}</span> <span class="text-slate-300">${line}</span>`;
-            container.appendChild(el);
-            setTimeout(() => {
-                el.style.opacity = "1";
-                el.style.transform = "translateX(0)";
-            }, i * 300);
-        });
-    };
+    // 4. TERMINAL TYPING ENGINE
+    const initTerminal = () => {
+        const target = document.getElementById('terminal-text');
+        let msgIndex = 0;
+        let charIndex = 0;
 
-    // 4. THE ESTIMATOR LOGIC
-    const handleEstimator = () => {
-        const serviceSelect = document.getElementById('estService');
-        const scaleInput = document.getElementById('estScale');
-        const scaleDisplay = document.getElementById('scaleDisplay');
-        const priceDisplay = document.getElementById('priceDisplay');
-
-        const update = () => {
-            const selected = state.services.find(s => s.id === serviceSelect.value || s.title.toLowerCase().includes(serviceSelect.value));
-            const costPerHr = selected ? selected.cost : 2000;
-            const total = costPerHr * scaleInput.value;
-            
-            scaleDisplay.innerText = `${scaleInput.value} Hours / Month`;
-            
-            // Animate number count
-            let current = parseInt(priceDisplay.innerText.replace(/\D/g,'')) || 0;
-            const animatePrice = () => {
-                if (current < total) {
-                    current += Math.ceil((total - current) * 0.1);
-                    priceDisplay.innerText = `Ksh ${current.toLocaleString()}`;
-                    requestAnimationFrame(animatePrice);
+        const type = () => {
+            if (msgIndex < config.terminalMessages.length) {
+                const currentMsg = config.terminalMessages[msgIndex];
+                if (charIndex < currentMsg.length) {
+                    target.innerHTML += currentMsg.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(type, 30);
                 } else {
-                    priceDisplay.innerText = `Ksh ${total.toLocaleString()}`;
+                    target.innerHTML += '<br>';
+                    msgIndex++;
+                    charIndex = 0;
+                    setTimeout(type, 1000);
                 }
-            };
-            animatePrice();
+            }
         };
-
-        serviceSelect.addEventListener('change', update);
-        scaleInput.addEventListener('input', update);
-        update();
+        type();
     };
 
-    // 5. OBSERVER PATTERN (SCROLL REVEALS)
-    const initObservers = () => {
+    // 5. INTERSECTION OBSERVERS (Framer-style)
+    const initScrollAnims = () => {
+        const options = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.classList.remove('opacity-0', 'translate-y-20', 'translate-y-10');
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                    }, delay);
                 }
             });
-        }, { threshold: 0.1 });
+        }, options);
 
-        document.querySelectorAll('section, .reveal-init').forEach(el => observer.observe(el));
+        // Hero Anims
+        const h1 = document.getElementById('hero-main');
+        const h2 = document.getElementById('hero-sub');
+        observer.observe(h1);
+        observer.observe(h2);
+
+        // Bento Anims
+        document.querySelectorAll('.bento-card').forEach(card => observer.observe(card));
     };
 
-    const handleNavScroll = () => {
-        const nav = document.getElementById('mainNav');
+    
+
+    // 6. NAVIGATION & MOBILE LOGIC
+    const initNav = () => {
+        const nav = document.getElementById('navbar');
+        const menuBtn = document.getElementById('menu-toggle');
+        
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 80) {
-                nav.classList.add('bg-slate-950/80', 'backdrop-blur-xl', 'py-2', 'border-white/5');
-                nav.classList.remove('py-4', 'border-transparent');
+            if (window.scrollY > 50) {
+                nav.classList.add('glass', 'py-4', 'mt-4', 'mx-6', 'rounded-3xl', 'max-w-7xl', 'left-1/2', '-translate-x-1/2');
+                nav.classList.remove('py-8', 'w-full');
             } else {
-                nav.classList.remove('bg-slate-950/80', 'backdrop-blur-xl', 'py-2', 'border-white/5');
-                nav.classList.add('py-4', 'border-transparent');
+                nav.classList.remove('glass', 'py-4', 'mt-4', 'mx-6', 'rounded-3xl', 'max-w-7xl', 'left-1/2', '-translate-x-1/2');
+                nav.classList.add('py-8', 'w-full');
             }
+        });
+
+        menuBtn.addEventListener('click', () => {
+            alert('Enterprise System Menu coming soon. Mobile architecture optimized.');
         });
     };
 
-    // 6. START THE ENGINE
     return {
-        start: () => {
-            initParticles();
-            renderServices();
-            renderCodeHero();
-            handleEstimator();
-            initObservers();
-            handleNavScroll();
-            window.addEventListener('resize', resize);
-            console.log("Ondiegi Engine Online. All systems green.");
+        launch: () => {
+            console.log("%cONDIEGI_SYSTEM_BOOT: SUCCESS", "color: #3b82f6; font-weight: bold;");
+            initCanvas();
+            renderBento();
+            initNav();
+            setTimeout(() => {
+                initScrollAnims();
+                initTerminal();
+            }, 100);
         }
     };
 })();
 
-// Execute
-document.addEventListener('DOMContentLoaded', OndiegiEngine.start);
+// BOOT ENGINE
+document.addEventListener('DOMContentLoaded', OndiegiApp.launch);
